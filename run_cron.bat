@@ -1,0 +1,1 @@
+python C:\django_projects\klen\run.py  main.views "parse1(True)"

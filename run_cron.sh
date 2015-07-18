@@ -1,0 +1,1 @@
+python /home/arc/django-apps/klen/run.py  main.views "parse1(True)"

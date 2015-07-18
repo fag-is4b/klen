@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}#Всеназолото{% endblock %}
+{% block content %}
+<div id="maincontent" style="display: none; text-align: center;">
+    <div style="float:right; color:#555555">
+        {% if user.is_authenticated %}
+            {{ user.username }}:&nbsp;<a href="/logout">Выйти</a>
+        {% else %}
+            <form enctype="multipart/form-data" method="post" action=".">
+            {% csrf_token %}
+                Имя:<input class='inpa' type='text' name='username' size="8" maxlength="15"> &nbsp;
+                Пароль:<input  class='inpa'  type='password' name='password' size="8" maxlength="15"> &nbsp;
+                <input   type="submit" name="login" value="ok" />
+            </form>
+        {% endif %}
+        <div style="text-align:right; color:#aa0000; padding-top: 10px;">
+            {{ login_message }}
+        </div>
+    </div>
+
+
+    <div style="text-align:center; color:#4154df"><h2>#Всеназолото</h2></div>
+
+ <table id="abcTable" class="display compact cell-border hover stripe">
+ <thead>
+     <tr>
+         <th>______Дата______</th>
+         <th>Золото</th>
+         <th>Доллар</th>
+         <th>Евро</th>
+         {% for name in name_list %}
+            <th>{{ name }}/Au</th>
+         {% endfor %}
+     </tr>
+ </thead>
+<tbody>
+
+{% for id,str in  strs  %}
+     <tr>
+     {% for s in  str  %}
+         {% if forloop.first %}
+                <td>{{ s|date:'d.m.y H:i' }}
+                    {% if user.is_authenticated %}
+                        {% if user.is_staff %}
+                            <a class='link_small' href="row_edit/{{ id }}">[{{ id }}]</a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+         {% else %}
+             {% if forloop.last %}
+                    {% for key, val in s %}
+                       <td>{{ val }}</td>
+                    {% endfor %}
+
+             {% else %}
+                <td>{{ s }}</td>
+             {% endif %}
+         {% endif %}
+     {% endfor %}
+     </tr>
+ {% endfor %}
+
+</tbody>
+ </table>
+
+ <div>
+
+{% if user.is_authenticated %}
+     {% if user.is_staff %}
+    <div style="float:left;">
+        <button id="button">Удалить выделенную строку</button>
+    </div>
+    <div style="float:right;">
+            <a  href="/parse">Добавить строку</a>
+    </div>
+    <div align="center">
+        <a id="get_xlsx" href="#">Получить  Excel - файл</a>
+    </div>
+
+
+    {% endif %}
+ {% endif %}
+
+ <a href="/sindika">sindika</a>
+</div>
+
+</div>
+{% endblock %}
+

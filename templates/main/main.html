@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}abc-main{% endblock %}
+{% block content %}
+
+	<div>-- abc --</div>
+    <div>Дата:{{ dt }}</div>
+    <div>Золото:{{ au }}</div>
+    <div>Доллар:{{ dollar }}</div>
+    <div>Евро:{{  euro }}</div>
+    <div>-----------------------------------------</div>
+    <div>
+        {% for key, value in  rezult  %}
+            {{ key }} --- {{ value }}<br>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}
+

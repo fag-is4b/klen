@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3884607394">
+    <data-source source="LOCAL" name="Django default" uuid="a3bf76b3-dbb3-4946-a3ad-ee5618477df6">
+      <driver-ref>mysql</driver-ref>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql:///klen_db</jdbc-url>
+      <user-name>root</user-name>
+      <user-password>df9ddf92df93df9bdf9a</user-password>
+      <libraries />
+    </data-source>
+  </component>
+</project>
+

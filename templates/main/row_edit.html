@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}#Всеназолото{% endblock %}
+{% block content %}
+<div align="center"><h2>Редактирование строки</h2></div>
+<div align="center">
+
+    <form enctype="multipart/form-data" method="post" action=".">
+      {% csrf_token %}
+
+      <table border="0">
+            <tr>
+                <td valign="center" align="right" width="400"><b>Дата:</b></td>
+                <td valign="center" align="left" >{{ form.date_time }}</td>
+                <td valign="center" align="left" width="240"><div id="error">{{ field.errors|removetags:"ul li" }}</div></td>
+            </tr>
+            <tr>
+                <td valign="center" align="right"><b>Золото:</b></td>
+                <td valign="center" align="left" >{{ form.au }}</td>
+                <td valign="center" align="left" width="240"><div id="error">{{ field.errors|removetags:"ul li" }}</div></td>
+            </tr>
+            <tr>
+                <td valign="center" align="right"><b>Доллар:</b></td>
+                <td valign="center" align="left" >{{ form.dollar }}</td>
+                <td valign="center" align="left" width="240"><div id="error">{{ field.errors|removetags:"ul li" }}</div></td>
+            </tr>
+            <tr>
+                <td valign="center" align="right"><b>Евро:</b></td>
+                <td valign="center" align="left" >{{ form.euro }}</td>
+                <td valign="center" align="left" width="240"><div id="error">{{ field.errors|removetags:"ul li" }}</div></td>
+            </tr>
+            <!--
+            <tr>
+                <td valign="center" align="right"><b>Котировки</b></td>
+
+                <td valign="center" align="left" width="400">{{ form.data }}</td>
+                <td valign="center" align="left" width="240"><div id="error">{{ field.errors|removetags:"ul li" }}</div></td>
+            </tr>
+            -->
+
+            <tr><td colspan="3">
+            <table border="0">
+            <tr><th colspan="4" align="center">&nbsp;</th></tr>
+            <tr><th colspan="4" align="center">Котировки:</th></tr>
+            <tr><th colspan="4" align="center">&nbsp;</th></tr>
+            {% for skey,sval in sdata %}
+
+            {% if forloop.counter|divisibleby:2 %}{% else %}</tr>{% endif %}
+                <td valign="center" align="right"><b>{{ skey }}</b></td>
+                <td valign="center" align="left" ><input type='text' name='sdata_values' value='{{ sval }}'></td>
+            {% if forloop.counter|divisibleby:2 %}<tr>{% else %}{% endif %}
+            {% endfor %}
+            </table>
+            </td></tr>
+          <tr>
+                <td colspan="3" align="center">
+                    <input  class="button_small" type="submit" name="save" value="Сохранить" />
+                    &nbsp;
+                    <a href="/">Вернуться</a>
+                </td>
+            </tr>
+
+      </table>
+     </form>
+</div>
+{% endblock %}
+

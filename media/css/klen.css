@@ -1,0 +1,28 @@
+/*© vsenazolto.ru, 2015 | frolkov_ag@mail.ru */
+
+th, td { white-space: nowrap; }
+    div.dataTables_wrapper {
+        width: 1000px;
+        margin: 0 auto;
+    }
+#centercont{
+        width: 1000px;
+    text-align: center;
+        }
+a, a:link, a:visited
+{color:#777777; text-decoration: underline; font-weight: normal; float: center;  font-size: 14px; }
+a:hover { color:#0f89df !important; text-decoration: underline; }
+
+a.link_small, a.link_small:link, a.link_small:visited
+{color:#777777; text-decoration: none; font-weight: normal; float: center;  font-size: 10px; }
+a.link_small:hover { color:#0f89df !important; text-decoration: underline; }
+
+.inpa  { 
+	color: #222222; 
+	border: 1px solid #777777; 
+	border-radius: 5px;
+	font-size:10pt; 
+	font-weight: normal; 
+	background-color: #ffffff; 
+}
+

@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru" xml:lang="ru">
+
+
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+
+    <meta name='yandex-verification' content='7eabe9f62f406b6f' />
+
+    <meta name="DESCRIPTION" content="#Всеназолото, Все на золото, новости финансовых рынков; причины роста и падения акций; инвестиционные идеи; торговые роботы; технический рынков; фундаментальный анализ компаний; финансовый словарь"/>
+    <meta name="KEYWORDS" content="#Всеназолото, трейдинг, инвестиции, рынок, ценные бумаги, фьючерсы, трейдеры, фондовый рынок, прогнозы по рынку, причины роста и падения, технический анализ, фундаментальный анализ"/>
+    
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+    <link rel="stylesheet" href="/media/css/normalize.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/media/css/klen.css" type="text/css" media="all" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.css">
+
+    <!-- jQuery -->
+    <script type="text/javascript" charset="utf8" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+
+    <!-- DataTables -->
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.js"></script>
+    <!--                "order": [[0,'desc']], -->
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            $('#abcTable').DataTable({
+                "scrollX": true,
+                "ordering": false,
+                language:{
+
+                    "paginate": {
+                        "first":      "начало",
+                        "last":       "Конец",
+                        "next":       "След",
+                        "previous":   "Пред"
+                    },
+                    "lengthMenu":     "Показывать _MENU_ строк",
+                    "search":         "Искать:",
+                    "info":           "Показано с _START_ по _END_ из _TOTAL_ строк",
+
+                }
+
+            });
+            $('#maincontent').show(1000);
+            var table = $('#abcTable').DataTable();
+            $('#abcTable tbody').on( 'click', 'tr', function () {
+                if ( $(this).hasClass('selected') ) {
+                    $(this).removeClass('selected');
+                }
+                else {
+                    table.$('tr.selected').removeClass('selected');
+                    $(this).addClass('selected');
+                }
+            } );
+
+            $('#button').click( function () {
+                var re = /\[\d*\]/;
+                var myArray = re.exec(table.row('.selected').data());
+                var rid=myArray[0];
+                var bIndex=rid.length-1;
+                rid=rid.substring(1,bIndex);
+                var isDelete=confirm("Удалить строку "+rid+" ?");
+                if (isDelete){
+                    $.ajax({
+                            url: "row_delete/"+rid,
+                            type: "get",
+                            success: function(data) {
+                                //alert("Строка с номером "+rid+" удалена.");
+                            },
+                            error: function(data) {
+                                alert("Ошибка удаления. "+data);
+                            }
+                        });
+                    table.row('.selected').remove().draw( false );
+                }
+            } );
+
+        });
+
+
+        $(document).ready(function(){
+           $('#get_xlsx').click(function(){
+                   $.ajax({
+                        url: "xls_write/",
+                        type: "get",
+                        success: function(data) {
+                            $(location).attr('href','/'+data);
+                        },
+                        error: function(data) {
+                            alert("Ошибка создания файла. Попробуйте позже.");
+                        }
+                    });
+            });
+        });
+
+    </script>
+</head>
+<body>
+
+    
+
+<!-- Shell -->
+<div class="shell">
+
+	{% block content %}{% endblock %}
+
+</div>
+<!-- End Shell -->
+
+</body>
+</html>
